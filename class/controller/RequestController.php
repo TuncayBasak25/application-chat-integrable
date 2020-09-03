@@ -4,29 +4,32 @@ class RequestController
 {
   public static function execute($request, $inputs = false)
   {
-    $response['html'] = '';
-    $response['error'] = '';
 
-    if ($request === 'first_load') {
-      HomePageView::display();
+    if ($request === 'update')
+    {
+      $response = MessageController::update($inputs);
     }
-    else if ($request === 'login') {
-      $response = SessionController::login($inputs);
+    else if ($request === 'message_input_form')
+    {
+      $response = MessageController::send($inputs);
     }
-    else if ($request === 'logout') {
-      $response = SessionController::logout();
+    else if ($request === 'login_input_form')
+    {
+      $response = UserController::login($inputs);
+    }
+    else if ($request === 'load')
+    {
+      $response = ConnectView::display();
+    }
+    else {
+      $response = ErrorView::undefinedRequest($request);
     }
 
 
-    // Une fois la requete executé
-    if ($request !== 'first_load') {
-      RequestController::responds($response);
-    }
-  }
 
-  public static function responds($response)
-  {
-    $response = json_encode($response);
-    echo $response;
+    if (empty($response) === FALSE)
+    {
+      echo json_encode($response);
+    }
   }
 }

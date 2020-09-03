@@ -9,7 +9,10 @@ function formSubmit(form, callBackFunction) {
     let input = inputs[i];
 
     data.append(input.name, input.value)
+
+    input.value = '';
   }
 
   ajax(data, callBackFunction);
+
 }

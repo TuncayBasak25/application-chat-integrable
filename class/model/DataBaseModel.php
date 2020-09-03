@@ -6,7 +6,7 @@ abstract class DataBaseModel
   private $server = 'localhost';
   private $user = 'root';
   private $password = '';
-  private $data_base = 'tuncayb_dash_board';
+  private $data_base = 'tuncayb_chat_application';
 
   private $conn;
   private $error;

@@ -1,13 +1,19 @@
-function loginResponse() {
-  console.log(this.response);
+function loginResponse()
+{
+  if (this.response.charAt(0) !== '{')
+  {
+    errorLog(this.response);
+    return false;
+  }
 
   let response = JSON.parse(this.response);
 
-  if (response.error !== '') {
-    document.getElementById('login_error').innerHTML = response.error;
+  if (typeof response.error !== 'undefined') {
+    document.getElementById('login_input').value = '';
+    document.getElementById('login_input').placeholder = response.error;
   }
-  else if (response.html !== '') {
-    document.getElementById('head_bar').innerHTML = response.html;
+  else if (typeof response.html !== 'undefined') {
+    document.getElementById('input_board').innerHTML = response.html;
   }
 
 }

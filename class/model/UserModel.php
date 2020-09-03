@@ -8,48 +8,32 @@ class UserModel extends DataBaseModel
     $this->table = "users";
     $this->table_columns = "(
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      username VARCHAR(30) NOT NULL,
-      email VARCHAR(60) NOT NULL,
-      password CHAR(60) NOT NULL,
 
-      firstname VARCHAR(30),
-      lastname VARCHAR(30),
-      numero VARCHAR(10),
-      adresse TEXT,
+      username VARCHAR(10) NOT NULL,
 
-      signup_date INT NOT NULL,
       login_date INT,
-      confirmed CHAR(5) DEFAULT 'false',
-
-      log_id INT
+      last_update INT
     )";
 
     $this->init_data_base();
   }
 
-  public function add_user($username, $email, $password)
+  public function add_user($username)
   {
-    $signup_date = time();
+    $login_date = time();
 
-    $sql = "INSERT INTO $this->table (username, email, password, signup_date) VALUES (?,?,?,?)";
+    $sql = "INSERT INTO $this->table (username, login_date) VALUES (?,?)";
 
-    $result = $this->query($sql, $username, $email, $password, $signup_date);
+    $result = $this->query($sql, $username, $login_date);
 
     return $result;
   }
 
-  public function get_user($username_or_email)
+  public function get_user($username)
   {
-    if (strpos($username_or_email, '@') === FALSE) {
-      $sql = "SELECT * FROM $this->table WHERE username = ?";
+    $sql = "SELECT * FROM $this->table WHERE username = ?";
 
-      $result = $this->query($sql, $username_or_email);
-    }
-    else {
-      $sql = "SELECT * FROM $this->table WHERE email = ?";
-
-      $result = $this->query($sql, $username_or_email);
-    }
+    $result = $this->query($sql, $username);
 
     return $result->fetch_assoc();
   }
@@ -63,18 +47,11 @@ class UserModel extends DataBaseModel
     return $result->fetch_all(MYSQLI_ASSOC);
   }
 
-  public function delete_user($username_or_email)
+  public function delete_user($username)
   {
-    if (strpos($username_or_email, '@') === FALSE) {
-      $sql = "DELETE FROM $this->table WHERE username = ?";
+    $sql = "DELETE FROM $this->table WHERE username = ?";
 
-      $result = $this->query($sql, $username_or_email);
-    }
-    else {
-      $sql = "DELETE FROM $this->table WHERE email = ?";
-
-      $result = $this->query($sql, $username_or_email);
-    }
+    $result = $this->query($sql, $username);
 
     return $result;
   }
