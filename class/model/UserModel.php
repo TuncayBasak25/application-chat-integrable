@@ -18,6 +18,11 @@ class UserModel extends DataBaseModel
     $this->init_data_base();
   }
 
+  public function reset()
+  {
+    $this->resetTable();
+  }
+
   public function add_user($username)
   {
     $login_date = time();

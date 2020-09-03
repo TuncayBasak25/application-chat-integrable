@@ -19,6 +19,11 @@ class MessageModel extends DataBaseModel
     $this->init_data_base();
   }
 
+  public function reset()
+  {
+    $this->resetTable();
+  }
+
   public function new_message($source, $message)
   {
     $send_date = time();

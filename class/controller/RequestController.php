@@ -21,6 +21,18 @@ class RequestController
     {
       $response = ConnectView::display();
     }
+    else if ($request === 'reset_server')
+    {
+      $userModel = new UserModel();
+      $userModel->reset();
+
+      $messageModel = new MessageModel();
+      $messageModel->reset();
+
+      session_destroy();
+
+      $response = FormView::loginForm();
+    }
     else {
       $response = ErrorView::undefinedRequest($request);
     }

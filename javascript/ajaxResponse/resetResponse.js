@@ -1,4 +1,4 @@
-function updateResponse()
+function resetResponse()
 {
   if (this.response.charAt(0) !== '{')
   {
@@ -11,9 +11,9 @@ function updateResponse()
   if (typeof response.html !== 'undefined')
   {
     let messag_board = document.getElementById('message_board');
-    messag_board.innerHTML += response.html;
+    messag_board.innerHTML = '';
 
-    if (response.html !== '') messag_board.scroll( {top: messag_board.scrollHeight, left: 0, behavior: 'smooth'} );
+    document.getElementById('input_board').innerHTML = response.html;
   }
 
 }

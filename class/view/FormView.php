@@ -26,6 +26,12 @@ class FormView
     <form id="message_input_form" onsubmit="formSubmit(this, messageResponse)" method="post"></form>
     <input id="message_input" form="message_input_form" type="text" name="message" placeholder="Max 300 charachter." required='required' pattern=".{1,300}">
     <?php
+    if ($_SESSION['username'] === 'Tuncay' || $_SESSION['username'] === 'Sergio')
+    {
+      ?>
+      <button type="reset" name="button" onclick="ajax(request('reset_server'), resetResponse)">Reset Server</button>
+      <?php
+    }
 
     if ($output_buffering === FALSE) return FALSE;
 

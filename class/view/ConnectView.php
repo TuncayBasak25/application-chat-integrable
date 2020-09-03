@@ -14,6 +14,9 @@ class ConnectView
       <?php
       if (isset($_SESSION['username']) === TRUE)
       {
+        $messageModel = new MessageModel();
+        $messageModel->new_message('server', $_SESSION['username'] . " is reconnected.");
+        
         FormView::messageForm(false);
       }
       else {

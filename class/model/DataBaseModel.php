@@ -4,7 +4,7 @@ abstract class DataBaseModel
 {
 
   private $server = 'localhost';
-  private $user = 'tuncayb';
+  private $user = 'root';
   private $password = '';
   private $data_base = 'tuncayb_chat_application';
 

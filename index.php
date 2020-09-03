@@ -3,7 +3,7 @@
 include 'include/header.php';
 
 
-session_destroy();
+
 
 
 
