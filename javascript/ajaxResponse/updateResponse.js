@@ -10,7 +10,10 @@ function updateResponse()
 
   if (typeof response.html !== 'undefined')
   {
-    document.getElementById('message_board').innerHTML += response.html;
+    let messag_board = document.getElementById('message_board');
+    messag_board.innerHTML += response.html;
+
+    messag_board.scroll( {top: messag_board.scrollHeight, left: 0, behavior: 'smooth'} );
   }
 
 }
