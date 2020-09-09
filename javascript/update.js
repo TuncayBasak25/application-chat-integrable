@@ -13,7 +13,7 @@ function update()
 
     data.append('last_message_id', lastMessage);
 
-    ajax(data, updateResponse);
+    ajax(data, messageAutoScroll);
 
     frame = 0;
   }

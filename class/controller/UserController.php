@@ -4,8 +4,12 @@ class UserController
 {
   public static function login($inputs)
   {
-    if (isset($inputs['username']) === FALSE || empty($inputs['username']) === TRUE) {
-      $response = ErrorView::emptyLoginError();
+    if (isset($inputs['username']) === FALSE || empty($inputs['username']) === TRUE)
+    {
+      ob_start();
+      ErrorView::emptyLoginError();
+      $response['login_input'] = ob_get_contents();
+      ob_clean();
       return $response;
     }
 
@@ -14,7 +18,9 @@ class UserController
     $test = $userModel->get_user($inputs['username']);
 
     if (empty($test) === FALSE) {
-      $response = ErrorView::userExistError();
+      ob_start();
+      ErrorView::userExistError();
+      $response['login_input'] = ob_get_contents();
       return $response;
     }
 
@@ -22,11 +28,12 @@ class UserController
 
     $_SESSION['username'] = $inputs['username'];
 
-    $messageModel = new MessageModel();
+    (new MessageModel())->new_message('server', $_SESSION['username'] . " is now connected.");
 
-    $messageModel->new_message('server', $_SESSION['username'] . " is now connected.");
-
-    $response = FormView::messageForm();
+    ob_start();
+    FormView::messageForm();
+    $response['input_board'] = ob_get_contents();
+    ob_clean();
 
     return $response;
   }

@@ -5,17 +5,21 @@ class MessageController
   public static function send($inputs)
   {
     if (isset($inputs['message']) === FALSE || empty($inputs['message']) === TRUE) {
-      $response = ErrorView::emptyMessageError();
+      ob_start();
+      ErrorView::emptyMessageError();
+      $response['message_input'] = ob_get_contents();
+      ob_clean();
       return $response;
     }
 
     $messageModel = new MessageModel();
-
     $messageModel->new_message($_SESSION['username'], $inputs['message']);
-
     $message_list[0] = $messageModel->get_last_message();
 
-    $response = MessageView::display($message_list);
+    ob_start();
+    MessageView::display($message_list);
+    $response['message_board']['add'] = ob_get_contents();
+    ob_clean();
 
     return $response;
   }
@@ -29,7 +33,10 @@ class MessageController
 
     $message_list = $messageModel->get_all_message_after($id);
 
-    $response = MessageView::display($message_list);
+    ob_start();
+    MessageView::display($message_list);
+    $response['message_board']['add'] = ob_get_contents();
+    ob_clean();
 
     return $response;
   }

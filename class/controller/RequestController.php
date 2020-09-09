@@ -19,7 +19,14 @@ class RequestController
     }
     else if ($request === 'load')
     {
-      $response = ConnectView::display();
+      if (isset($_SESSION['username']) === TRUE)
+      {
+        (new MessageModel())->new_message('server', $_SESSION['username'] . " is reconnected.");
+      }
+      ob_start();
+      WindowView::display();
+      $response['chat_container'] = ob_get_contents();
+      ob_clean();
     }
     else if ($request === 'reset_server')
     {
