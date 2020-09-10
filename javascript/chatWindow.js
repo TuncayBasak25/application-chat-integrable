@@ -138,26 +138,31 @@ function modifyChatWindow(chatWindow)
     chatWindow.style.left = String(rect.left + diffX) + "px";
     chatWindow.style.top = String(rect.top + diffY) + "px";
    }
+   if (rect.width + diffX > 200)
+   {
+     if (crs === 'w-resize' || crs === 'nw-resize' || crs === 'sw-resize')
+     {
+       chatWindow.style.left = String(rect.left + diffX) + "px";
+       chatWindow.style.width = String(rect.width - diffX) + "px";
+     }
+     else if (crs === 'e-resize' || crs === 'ne-resize' || crs === 'se-resize')
+     {
+       chatWindow.style.width = String(rect.width + diffX) + "px";
+     }
+   }
 
-  if (crs === 'w-resize' || crs === 'nw-resize' || crs === 'sw-resize')
-  {
-    chatWindow.style.left = String(rect.left + diffX) + "px";
-    chatWindow.style.width = String(rect.width - diffX) + "px";
-  }
-  else if (crs === 'e-resize' || crs === 'ne-resize' || crs === 'se-resize')
-  {
-    chatWindow.style.width = String(rect.width + diffX) + "px";
-  }
-
-  if (crs === 'n-resize' || crs === 'nw-resize' || crs === 'ne-resize')
-  {
-    chatWindow.style.top = String(rect.top + diffY) + "px";
-    chatWindow.style.height = String(rect.height - diffY) + "px";
-  }
-  else if (crs === 's-resize' || crs === 'sw-resize' || crs === 'se-resize')
-  {
-    chatWindow.style.height = String(rect.height + diffY) + "px";
-  }
+   if (rect.height + diffY > 300)
+   {
+     if (crs === 'n-resize' || crs === 'nw-resize' || crs === 'ne-resize')
+     {
+       chatWindow.style.top = String(rect.top + diffY) + "px";
+       chatWindow.style.height = String(rect.height - diffY) + "px";
+     }
+     else if (crs === 's-resize' || crs === 'sw-resize' || crs === 'se-resize')
+     {
+       chatWindow.style.height = String(rect.height + diffY) + "px";
+     }
+   }
 
   window.mouseX = mouseX;
   window.mouseY = mouseY;
