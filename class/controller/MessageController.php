@@ -14,14 +14,8 @@ class MessageController
 
     $messageModel = new MessageModel();
     $messageModel->new_message($_SESSION['username'], $inputs['message']);
-    $message_list[0] = $messageModel->get_last_message();
 
-    ob_start();
-    MessageView::display($message_list);
-    $response['message_board']['add'] = ob_get_contents();
-    ob_clean();
-
-    return $response;
+    return ['none' => ''];
   }
 
   public static function update($inputs)

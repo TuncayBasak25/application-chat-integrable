@@ -4,7 +4,7 @@ messageDiv.id = "chat_container";
 
 document.body.appendChild(messageDiv);
 
-ajax(request('load'));
+ajax(request('load'), initChatWindow);
 
 let data = request('login');
 

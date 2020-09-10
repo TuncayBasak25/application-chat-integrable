@@ -72,7 +72,7 @@ function defaultAjaxCallBack()
     }
   }
 
-  if (typeof this.callBack === 'function') this.callBack();
+  if (typeof this.callBack === 'function') this.callBack(json);
 }
 
 function errorLog(errorHtml)

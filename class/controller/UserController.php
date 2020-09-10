@@ -21,6 +21,8 @@ class UserController
       ob_start();
       ErrorView::userExistError();
       $response['login_input'] = ob_get_contents();
+      ob_clean();
+
       return $response;
     }
 

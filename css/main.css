@@ -1,11 +1,25 @@
+#chat_window
+{
+  position: absolute;
+
+  width: 300px;
+  height: 680px;
+
+  left: calc(50vw - 150px);
+  top: calc(50vh - 340px);
+
+  border: 5px solid black;
+  border-radius: 5px;
+
+  user-select: none;
+}
+
 #message_board
 {
   background-color: grey;
 
-  --window-width: 300px;
-
-  width: var(--window-width);
-  height: 500px;
+  width: 100%;
+  height: calc(100% - 80px);
 
   overflow-y: scroll;
 }
@@ -14,7 +28,7 @@
 {
   background-color: cyan;
 
-  width: 300px;
+  width: 100%;
   height: 50px;
 }
 
