@@ -137,32 +137,27 @@ function modifyChatWindow(chatWindow)
   {
     chatWindow.style.left = String(rect.left + diffX) + "px";
     chatWindow.style.top = String(rect.top + diffY) + "px";
-   }
-   if (rect.width + diffX > 200)
-   {
-     if (crs === 'w-resize' || crs === 'nw-resize' || crs === 'sw-resize')
-     {
-       chatWindow.style.left = String(rect.left + diffX) + "px";
-       chatWindow.style.width = String(rect.width - diffX) + "px";
-     }
-     else if (crs === 'e-resize' || crs === 'ne-resize' || crs === 'se-resize')
-     {
-       chatWindow.style.width = String(rect.width + diffX) + "px";
-     }
-   }
+  }
 
-   if (rect.height + diffY > 300)
-   {
-     if (crs === 'n-resize' || crs === 'nw-resize' || crs === 'ne-resize')
-     {
-       chatWindow.style.top = String(rect.top + diffY) + "px";
-       chatWindow.style.height = String(rect.height - diffY) + "px";
-     }
-     else if (crs === 's-resize' || crs === 'sw-resize' || crs === 'se-resize')
-     {
-       chatWindow.style.height = String(rect.height + diffY) + "px";
-     }
-   }
+  if (crs === 'w-resize' || crs === 'nw-resize' || crs === 'sw-resize')
+  {
+    if (rect.width > 200) chatWindow.style.left = String(rect.left + diffX) + "px";
+    chatWindow.style.width = String(rect.width - diffX) + "px";
+  }
+  else if (crs === 'e-resize' || crs === 'ne-resize' || crs === 'se-resize')
+  {
+    chatWindow.style.width = String(rect.width + diffX) + "px";
+  }
+
+  if (crs === 'n-resize' || crs === 'nw-resize' || crs === 'ne-resize')
+  {
+    if (rect.height > 300) chatWindow.style.top = String(rect.top + diffY) + "px";
+    chatWindow.style.height = String(rect.height - diffY) + "px";
+  }
+  else if (crs === 's-resize' || crs === 'sw-resize' || crs === 'se-resize')
+  {
+    chatWindow.style.height = String(rect.height + diffY) + "px";
+  }
 
   window.mouseX = mouseX;
   window.mouseY = mouseY;
@@ -191,7 +186,8 @@ function reduceChatWindow(button)
   chatWindow.style.left = String(window.innerWidth - 250) + "px";
   chatWindow.style.top = String(window.innerHeight - 80) + "px";
 
-  chatWindow.style.border = "none";
+  chatWindow.style.minLeft = String(window.innerWidth - 250) + "px";
+  chatWindow.style.minTop = String(window.innerHeight - 80) + "px";
 }
 
 function developChatWindow(button)
@@ -210,6 +206,9 @@ function developChatWindow(button)
   chatWindow.style.width = "300px";
   chatWindow.style.height = "500px";
 
+  chatWindow.style.minWidth = "200px";
+  chatWindow.style.minHeight = "300px";
+
   let diffWidth = rect.right + 350 - window.innerWidth;
   let diffHeight = rect.bottom + 550 - window.innerHeight;
 
@@ -223,5 +222,4 @@ function developChatWindow(button)
     chatWindow.style.top = String(window.innerHeight - 550) + "px";
   }
 
-  chatWindow.style.border = "5px solid black";
 }
