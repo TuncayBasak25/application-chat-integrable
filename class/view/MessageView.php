@@ -13,7 +13,8 @@ class MessageView
         if ($message['source'] === 'server')
         {
           ?>
-          <span class="message_source" style="color: purple"><?= $message['source'] ?>: </span>
+          <!-- added onclick="ajax(request('actionCreative'), actionResponse)" as example -->
+          <span class="message_source" onclick="ajax(request('actionCreative'), actionResponse)" style="color: purple"><?= $message['source'] ?>: </span>
           <span class="message_text" style="color: green"><?= $message['message'] ?></span>
           <?php
         }
