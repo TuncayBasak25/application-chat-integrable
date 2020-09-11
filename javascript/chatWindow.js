@@ -181,13 +181,13 @@ function reduceChatWindow(button)
   document.getElementById('input_board').style.display = "none";
 
   chatWindow.style.width = "200px";
-  chatWindow.style.height = "30px";
+  chatWindow.style.height = "35px";
+
+  chatWindow.style.minWidth = "200px";
+  chatWindow.style.minHeight = "35px";
 
   chatWindow.style.left = String(window.innerWidth - 250) + "px";
   chatWindow.style.top = String(window.innerHeight - 80) + "px";
-
-  chatWindow.style.minLeft = String(window.innerWidth - 250) + "px";
-  chatWindow.style.minTop = String(window.innerHeight - 80) + "px";
 }
 
 function developChatWindow(button)
