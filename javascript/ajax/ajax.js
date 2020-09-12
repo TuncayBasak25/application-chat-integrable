@@ -14,9 +14,9 @@ function formSubmit(form, callBack = null, preventDefault = false) {
 
   let data = request(form.id);
 
-  let inputList = document.querySelectorAll("[form=" + form.id + "]");
+  // let inputList = document.querySelectorAll("[form=" + form.id + "]");
 
-  for (let input of inputList) data.append(input.name, input.value);
+  for (let input of form) data.append(input.name, input.value);
 
   ajax(data, callBack, preventDefault);
 
@@ -51,7 +51,6 @@ function defaultAjaxCallBack()
   for (let [elmId, content] of Object.entries(json))
   {
     let elm = document.getElementById(elmId);
-
     if (elm !== null)
     {
       if (typeof content === 'object')
@@ -69,6 +68,9 @@ function defaultAjaxCallBack()
       {
         elm.innerHTML = content;
       }
+    } else if (elmId === 'none') // if (message sent)
+    {
+      // play sound (let soundAlert = new ChatSounds(id);)
     }
   }
 

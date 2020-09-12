@@ -1,4 +1,4 @@
-const ABS_PATH;
+const ABS_PATH ='';
 let soundFiles = [];
 
 class ChatSounds {
