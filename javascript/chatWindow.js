@@ -1,6 +1,7 @@
 function initChatWindow()
 {
   document.getElementById('chat_window').reduced = false;
+
   update();
 }
 
