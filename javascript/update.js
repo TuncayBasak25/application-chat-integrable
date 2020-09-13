@@ -1,4 +1,3 @@
-
 function update()
 {
   let data = request('update');
