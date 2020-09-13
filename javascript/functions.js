@@ -6,7 +6,10 @@ function setEmptyInputValue(inputId)
 }
 
 function privateMessage(username) {
-  document.getElementById('message_input').value = '<p:' + username + '>';
+  if (getId('message_input') !== null)
+  {
+    getId('message_input').value = '<p:' + username + '>';
+  }
 }
 
 window.addEventListener('unload', () => {
