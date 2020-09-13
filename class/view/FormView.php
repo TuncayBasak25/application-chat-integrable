@@ -13,7 +13,7 @@ class FormView
   public static function messageForm()
   {
     ?>
-    <form id="message_input_form" onsubmit="formSubmit(this, update); setEmptyInputValue('message_input')" method="post"></form>
+    <form id="message_input_form" onsubmit="formSubmit(this); setEmptyInputValue('message_input')" method="post"></form>
     <input id="message_input" form="message_input_form" type="text" name="message" placeholder="Max 300 charachter." required='required' pattern=".{1,300}" autocomplete="off">
     <?php
     if ($_SESSION['username'] === 'Tuncay' || $_SESSION['username'] === 'Sergio')

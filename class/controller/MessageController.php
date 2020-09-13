@@ -42,10 +42,16 @@ class MessageController
   {
     $messageModel = new MessageModel();
 
-    if ($inputs['last_message_id'] === 'none') $id = 0;
-    else $id = intval($inputs['last_message_id']);
+    if ($inputs['last_message_id'] === 'none')
+    {
+      $message_list = $messageModel->get_all_last_message(30);
+    }
+    else
+    {
+      $id = intval($inputs['last_message_id']);
+      $message_list = $messageModel->get_all_message_after($id);
+    }
 
-    $message_list = $messageModel->get_all_message_after($id);
 
     ob_start();
     MessageView::display($message_list);

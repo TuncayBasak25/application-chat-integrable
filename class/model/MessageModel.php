@@ -10,6 +10,7 @@ class MessageModel extends DataBaseModel
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 
       source VARCHAR(10) NOT NULL,
+      destination VARCHAR(30) DEFAULT 'global',
 
       message VARCHAR(300) NOT NULL,
 
@@ -44,13 +45,22 @@ class MessageModel extends DataBaseModel
     return $result->fetch_assoc();
   }
 
-  public function get_all_message_after($id) //Renvoie un tableau associatif de tous les produit possedé par un utilisateur
+  public function get_all_message_after($id)
   {
     $sql = "SELECT * FROM $this->table WHERE id > ?";
 
     $result = $this->query($sql, $id);
 
     return $result->fetch_all(MYSQLI_ASSOC);
+  }
+
+  public function get_all_last_message($limit = 30) //Renvoi les dernier message enregistrée
+  {
+    $sql = "SELECT * FROM $this->table ORDER BY id DESC LIMIT ?";
+
+    $result = $this->query($sql, $limit)->fetch_all(MYSQLI_ASSOC);
+
+    return array_reverse($result);
   }
 
   public function get_user_all_message($source) //Renvoie un tableau associatif de tous les produit possedé par un utilisateur

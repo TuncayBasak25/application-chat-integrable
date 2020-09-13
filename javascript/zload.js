@@ -12,4 +12,4 @@ data.append('username', 'tufan');
 
 //ajax(data, loginResponse);
 
-update();
+setTimeout(update, 100);
