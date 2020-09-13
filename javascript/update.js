@@ -6,14 +6,14 @@ function update()
 
   if (lastMessage) lastMessage = lastMessage.id;
   else lastMessage = 'none';
-  console.log(lastMessage);
 
   data.append('last_message_id', lastMessage);
 
   ajax(data, repeatUpdate);
 }
 
-function repeatUpdate(json) {
+function repeatUpdate(json)
+{
   messageAutoScroll(json);
 
   setTimeout(update, 100);

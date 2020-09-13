@@ -4,7 +4,7 @@
 
 #chat_window
 {
-  background-color: green;
+  background-color: black;
 
   position: absolute;
 
@@ -29,7 +29,7 @@
 
 #message_board
 {
-  background-color: grey;
+  background-color: white;
 
   margin: 3px;
   margin-right: 10px;
@@ -45,12 +45,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: grey;
+  background: white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: white;
+  background: grey;
 }
 
 /* Handle on hover */
@@ -82,4 +82,20 @@
 
   margin-left: auto;
   margin-right: auto;
+}
+
+.message_text:hover
+{
+  outline: 1px solid black;
+  outline-offset: -1px;
+  cursor: pointer;
+}
+
+.message_source:hover
+{
+  font-weight: bold;
+  cursor: pointer;
+}
+.message_source {
+
 }

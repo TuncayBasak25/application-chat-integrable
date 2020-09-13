@@ -55,7 +55,7 @@ function defaultAjaxCallBack()
     {
       if (typeof content === 'object')
       {
-        if (typeof content.add === 'string')
+        if (typeof content.add === 'string' && content.add !== '')
         {
           elm.innerHTML += content.add;
         }
