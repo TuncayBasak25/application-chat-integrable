@@ -25,13 +25,13 @@ class MessageModel extends DataBaseModel
     $this->resetTable();
   }
 
-  public function new_message($source, $message)
+  public function new_message($source, $message, $destination = 'global')
   {
     $send_date = time();
 
-    $sql = "INSERT INTO $this->table (source, message, send_date) VALUES (?,?,?)";
+    $sql = "INSERT INTO $this->table (source, message, send_date, destination) VALUES (?,?,?,?)";
 
-    $result = $this->query($sql, $source, $message, $send_date);
+    $result = $this->query($sql, $source, $message, $send_date, $destination);
 
     return $result;
   }

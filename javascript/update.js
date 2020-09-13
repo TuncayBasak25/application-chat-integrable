@@ -16,7 +16,7 @@ function update()
 function repeatUpdate(json)
 {
   messageAutoScroll(json);
-  
+
   setTimeout(update, 100);
 }
 
