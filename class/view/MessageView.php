@@ -25,7 +25,14 @@ class MessageView
         }
         else if ($message['destination'] === 'global')
         {
-          MessageView::user_message($message);
+          if (isset($_SESSION['username']) === TRUE && $message['source'] === $_SESSION['username'])
+          {
+            MessageView::my_message($message);
+          }
+          else
+          {
+            MessageView::user_message($message);
+          }
         }
         else if ($message['destination'] == $_SESSION['username'])
         {
@@ -52,15 +59,15 @@ class MessageView
   public static function my_message($message)
   {
     ?>
-    <span class="message_source pl-1" style="color: limegreen"><?= $message['source'] ?>: </span>
-    <span class="message_text ml-1" style="color: navy;"><?= $message['message'] ?></span>
+    <span class="pl-1" style="color: limegreen"><?= $message['source'] ?>: </span>
+    <span class="ml-1" style="color: navy;"><?= $message['message'] ?></span>
     <?php
   }
 
   public static function my_private_message($message)
   {
     ?>
-    <span class="pl-1" style="color: darkred">You to <span class="message_source"><?= $message['destination']; ?></span>:</span>
+    <span class="pl-1" style="color: darkred">You to <span class="message_source" onclick="privateMessage('<?= $message['destination']; ?>');"><?= $message['destination']; ?></span>:</span>
     <span class="message_text ml-1" style="color: navy;"><?= $message['message'] ?></span>
     <?php
   }
@@ -68,7 +75,7 @@ class MessageView
   public static function received_private_message($message)
   {
     ?>
-    <span class="pl-1" style="color: darkred"><span class="message_source"><?= $message['source'] ?></span> to you:</span>
+    <span class="pl-1" style="color: darkred"><span class="message_source" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?></span> to you:</span>
     <span class="message_text ml-1" style="color: navy;"><?= $message['message'] ?></span>
     <?php
   }
