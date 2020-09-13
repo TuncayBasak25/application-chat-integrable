@@ -1,4 +1,4 @@
-const ABS_PATH ='';
+const ABS_PATH = '/c/wamp64/www/snunezmeneses/chat_app/src/snd/';
 let soundFiles = [];
 
 class ChatSounds {
@@ -10,7 +10,7 @@ class ChatSounds {
 
   setSound = function() {
     this.audio = document.createElement('audio');
-		this.audio.src; // ABS_PATH + this.sound
+		this.audio.src = ABS_PATH + 'glitch.aif'; // ABS_PATH + this.sound
 		this.audio.setAttribute('id', this.sound);
     document.body.appendChild(this.audio); // or chat_container.appendChild(this.audio);
 	}
