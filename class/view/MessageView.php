@@ -36,10 +36,11 @@ class MessageView
         }
         else if ($message['destination'] == $_SESSION['username'])
         {
-          ?>
-          <span class="message_source" style="color: red" onclick="test();"><?= $message['source'] ?>: </span>
-          <span class="message_text" style="color: white"><?= $message['message'] ?></span>
-          <?php
+          MessageView::received_private_message($message);
+        }
+        else if ($message['source'] === $_SESSION['username'])
+        {
+          MessageView::my_private_message($message);
         }
         ?>
       </p>
