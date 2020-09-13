@@ -1,3 +1,7 @@
+.hidden {
+  display: none;
+}
+
 #chat_window
 {
   background-color: black;
