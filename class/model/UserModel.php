@@ -12,7 +12,8 @@ class UserModel extends DataBaseModel
       username VARCHAR(10) NOT NULL,
 
       login_date INT,
-      last_update INT
+      last_update INT,
+      login_id TEXT
     )";
 
     $this->init_data_base();
@@ -26,10 +27,11 @@ class UserModel extends DataBaseModel
   public function add_user($username)
   {
     $login_date = time();
+    $login_id = session_id();
 
-    $sql = "INSERT INTO $this->table (username, login_date) VALUES (?,?)";
+    $sql = "INSERT INTO $this->table (username, login_date, login_id) VALUES (?,?,?)";
 
-    $result = $this->query($sql, $username, $login_date);
+    $result = $this->query($sql, $username, $login_date, $login_id);
 
     return $result;
   }

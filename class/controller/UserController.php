@@ -7,8 +7,9 @@ class UserController
     if (isset($inputs['username']) === FALSE || empty($inputs['username']) === TRUE)
     {
       ob_start();
-      ErrorView::emptyLoginError();
-      $response['login_input'] = ob_get_contents();
+      $message = ['id' => 'none', 'source' => 'server', 'message' => "Username empty or missing."];
+      MessageView::single_message($message);
+      $response['message_board']['add'] = ob_get_contents();
       ob_clean();
       return $response;
     }
@@ -17,12 +18,24 @@ class UserController
 
     $test = $userModel->get_user($inputs['username']);
 
-    if (empty($test) === FALSE) {
-      ob_start();
-      ErrorView::userExistError();
-      $response['login_input'] = ob_get_contents();
-      ob_clean();
+    if ($inputs['username'] === 'server' && empty($test) === FALSE && time() - $test['last_update'] < 900)
+    {
+      $test = FALSE;
+    }
+    else
+    {
+      $userModel->delete_user($inputs['username']);
 
+      $test = TRUE;
+    }
+
+    if ($test === FALSE)
+    {
+      ob_start();
+      $message = ['id' => 'none', 'source' => 'server', 'message' => "This username is not available."];
+      MessageView::single_message($message);
+      $response['message_board']['add'] = ob_get_contents();
+      ob_clean();
       return $response;
     }
 
