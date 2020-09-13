@@ -31,3 +31,9 @@ class ChatSounds {
     this.audio.remove();
   }
 }
+
+class ActionsDiv {
+  constructor() {
+    this.element = document.createElement('div');
+  }
+}

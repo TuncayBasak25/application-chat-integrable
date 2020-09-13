@@ -5,11 +5,3 @@ messageDiv.id = "chat_container";
 document.body.appendChild(messageDiv);
 
 ajax(request('load'), initChatWindow);
-
-let data = request('login');
-
-data.append('username', 'tufan');
-
-//ajax(data, loginResponse);
-
-update();

@@ -18,7 +18,7 @@ class MessageView
         else
         {
           ?>
-          <span class="message_source" style="color: red"><?= $message['source'] ?>: </span>
+          <span class="message_source" style="color: red" onclick="test();"><?= $message['source'] ?>: </span>
           <span class="message_text" style="color: white"><?= $message['message'] ?></span>
           <?php
         }
