@@ -6,10 +6,4 @@ document.body.appendChild(messageDiv);
 
 ajax(request('load'), initChatWindow);
 
-let data = request('login');
-
-data.append('username', 'tufan');
-
 //ajax(data, loginResponse);
-
-setTimeout(update, 100);

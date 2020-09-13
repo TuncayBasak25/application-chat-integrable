@@ -1,4 +1,3 @@
-
 function update()
 {
   let data = request('update');
@@ -16,7 +15,7 @@ function update()
 function repeatUpdate(json)
 {
   messageAutoScroll(json);
-  
+
   setTimeout(update, 100);
 }
 

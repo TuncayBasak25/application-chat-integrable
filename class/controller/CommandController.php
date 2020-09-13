@@ -22,5 +22,24 @@ class CommandController
       (new UserModel)->reset();
       (new MessageModel)->reset();
     }
+    else if (substr($inputs['message'], 0, 3) === '<p:')
+    {
+      $message = substr($inputs['message'], 3);
+      $pos = strpos($message, '>');
+
+      $user = substr($message, 0, $pos);
+
+      if (empty((new UserModel)->get_user($user)) === TRUE)
+      {
+        $message = "This user doesn't exist.";
+        (new MessageModel)->new_message('server', $message, $_SESSION['username']);
+      }
+      else
+      {
+        $message = substr($message, $pos + 1);
+
+        (new MessageModel)->new_message($_SESSION['username'], $message, $user);
+      }
+    }
   }
 }
