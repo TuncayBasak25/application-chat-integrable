@@ -29,9 +29,13 @@ class MessageView
           {
             MessageView::my_message($message);
           }
-          else
+          else if (isset($_SESSION['username']) === TRUE)
           {
             MessageView::user_message($message);
+          }
+          else
+          {
+            MessageView::disconnected_message($message);
           }
         }
         else if ($message['destination'] == $_SESSION['username'])
@@ -61,6 +65,14 @@ class MessageView
     ?>
     <span class="pl-1" style="color: limegreen"><?= $message['source'] ?>: </span>
     <span class="ml-1" style="color: navy;"><?= $message['message'] ?></span>
+    <?php
+  }
+
+  public static function disconnected_message($message)
+  {
+    ?>
+    <span class="pl-1" style="color: blue"><?= $message['source'] ?>: </span>
+    <span class="ml-1" style="color: black;"><?= $message['message'] ?></span>
     <?php
   }
 
