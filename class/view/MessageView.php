@@ -2,18 +2,21 @@
 
 class MessageView
 {
-  public static function display($message_list)
+  public static function display($message_list, $user)
   {
+    if (empty($user) === FALSE) $username = $user['username'];
     foreach ($message_list as $index => $message)
     {
-      if (($message['destination'] === 'global') || (isset($_SESSION['username']) === TRUE) && ($message['destination'] === $_SESSION['username'] || $message['source'] === $_SESSION['username']))
+      $source = $message['source'];
+      $destination = $message['destination'];
+      if (($destination === 'global') || ($user !== FALSE) && ($destination === $username || $source === $username))
       {
-        MessageView::single_message($message);
+        MessageView::single_message($message, $user);
       }
     }
   }
 
-  public static function single_message($message)
+  public static function single_message($message, $user)
   {
     ?>
     <div id="<?= $message['id'] ?>" class="w-100">
@@ -25,11 +28,11 @@ class MessageView
         }
         else if ($message['destination'] === 'global')
         {
-          if (isset($_SESSION['username']) === TRUE && $message['source'] === $_SESSION['username'])
+          if (empty($user) === FALSE && $message['source'] === $user['username'])
           {
             MessageView::my_message($message);
           }
-          else if (isset($_SESSION['username']) === TRUE)
+          else if (empty($user) === FALSE)
           {
             MessageView::user_message($message);
           }
@@ -38,11 +41,11 @@ class MessageView
             MessageView::disconnected_message($message);
           }
         }
-        else if ($message['destination'] == $_SESSION['username'])
+        else if ($message['destination'] == $user['username'])
         {
           MessageView::received_private_message($message);
         }
-        else if ($message['source'] === $_SESSION['username'])
+        else if ($message['source'] === $user['username'])
         {
           MessageView::my_private_message($message);
         }

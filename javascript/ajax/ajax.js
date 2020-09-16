@@ -1,15 +1,37 @@
-function ajax(data, callBack = null, prenventDefault = false)
+function ajax(data, callBackFunction_array = null, prenventDefault = false)
 {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", 'action/ajaxRequest.php');
-  xhr.callBack = callBack;
 
-  if (prenventDefault === false) xhr.onload = defaultAjaxCallBack;
-  else xhr.onload = callBack
+  if (prenventDefault === false)
+  {
+    xhr.onload = defaultAjaxCallBack;
+    if (typeof callBackFunction_array !== 'object')
+    {
+      xhr.callBackFunction_array = Array(callBackFunction_array);
+    }
+    else
+    {
+      xhr.callBackFunction_array = callBackFunction_array;
+    }
+  }
+  else
+  {
+    if (typeof callBackFunction_array !== 'object')
+    {
+      xhr.onload = callBackFunction_array;
+    }
+    else
+    {
+      xhr.onload = callBackFunction_array.shift();
+      xhr.callBackFunction_array = callBackFunction_array;
+    }
+  }
+
   xhr.send(data);
 }
 
-function formSubmit(form, callBack = null, preventDefault = false) {
+function ajaxFormSubmit(form, callBackFunction_array = null, preventDefault = false) {
   window.event.preventDefault();
 
   let data = request(form.id);
@@ -18,7 +40,8 @@ function formSubmit(form, callBack = null, preventDefault = false) {
 
   for (let input of form) data.append(input.name, input.value);
 
-  ajax(data, callBack, preventDefault);
+
+  ajax(data, callBackFunction_array, preventDefault);
 
   return false;
 }
@@ -50,7 +73,15 @@ function defaultAjaxCallBack()
 
   for (let [elmId, content] of Object.entries(json))
   {
-    let elm = document.getElementById(elmId);
+    let elm;
+    if (elmId === 'body')
+    {
+      elm = document.body;
+    }
+    else
+    {
+      elm = document.getElementById(elmId);
+    }
     if (elm !== null)
     {
       if (typeof content === 'object')
@@ -59,7 +90,7 @@ function defaultAjaxCallBack()
         {
           elm.innerHTML += content.add;
         }
-        else if (typeof content.value === 'string')
+        else if (typeof content.value === 'string' && content.value !== '')
         {
           elm.value = content.value;
         }
@@ -74,7 +105,12 @@ function defaultAjaxCallBack()
     }
   }
 
-  if (typeof this.callBack === 'function') this.callBack(json);
+  if (this.callBackFunction_array !== null)
+  {
+    this.callBackFunction_array.forEach((callBackFunction, i) => {
+      callBackFunction(json);
+    });
+  }
 }
 
 function errorLog(errorHtml)

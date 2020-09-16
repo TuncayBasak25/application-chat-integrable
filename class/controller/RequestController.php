@@ -7,24 +7,31 @@ class RequestController
 
     if ($request === 'update')
     {
-      if (isset($_SESSION['username']) && empty((new UserModel)->get_user($_SESSION['username'])) === TRUE)
+      $user = (new UserModel)->actual_user();
+
+      if (empty($user['username']) === TRUE)
       {
-        unset($_SESSION['username']);
+        if ($inputs['login_loaded'] !== "true")
+        {
+          ob_start();
+          FormView::loginForm();
+          $response['input_board'] = ob_get_contents();
+          ob_clean();
 
-        ob_start();
-        FormView::loginForm();
-        $response['input_board'] = ob_get_contents();
-        ob_clean();
+          ob_start();
+          $message = ['id' => 'none', 'source' => 'server', 'message' => "You are disconnected."];
+          MessageView::single_message($message, $user);
+          $response['message_board']['add'] = ob_get_contents();
+          ob_clean();
+        }
 
-        ob_start();
-        $message = ['id' => 'none', 'source' => 'server', 'message' => "You are disconnected."];
-        MessageView::single_message($message);
-        $response['message_board']['add'] = ob_get_contents();
-        ob_clean();
+        $response['disconnected'] = "true";
       }
       else
       {
         $response = MessageController::update($inputs);
+
+        $response['disconnected'] = "";
       }
     }
     else if ($request === 'message_input_form')
@@ -47,7 +54,7 @@ class RequestController
       if (isset($_SESSION['username']) === TRUE)
       {
         $user = (new UserModel)->get_user($_SESSION['username']);
-        if (empty($user) === FALSE && $user['login_id'] === session_id())
+        if (empty($user) === FALSE && $user['session_id'] === session_id())
         {
           (new MessageModel())->new_message('server', $_SESSION['username'] . " is reconnected.");
         }
