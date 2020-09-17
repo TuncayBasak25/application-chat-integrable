@@ -12,6 +12,11 @@ function privateMessage(username) {
   }
 }
 
+function playSoundAlert() {
+  let messageSound = new SoundAlerts('message_sent');
+  alert('sound!');
+}
+
 window.addEventListener('unload', () => {
   ajax(request('message_input_form', 'message=<disconnect>'));
 })
