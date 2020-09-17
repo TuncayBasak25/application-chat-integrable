@@ -6,7 +6,8 @@ function setEmptyInputValue(inputId)
 }
 
 function privateMessage(username) {
-  if (getId('message_input').value !== null) {
+  if (getId('message_input') !== null)
+  {
     getId('message_input').value = '<p:' + username + '>';
   }
 }
