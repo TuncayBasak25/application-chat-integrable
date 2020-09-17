@@ -6,7 +6,14 @@ function setEmptyInputValue(inputId)
 }
 
 function privateMessage(username) {
-  document.getElementById('message_input').value = '<p:' + username + '>';
+  if (getId('message_input').value !== null) {
+    getId('message_input').value = '<p:' + username + '>';
+  }
+}
+
+function playSoundAlert() {
+  let messageSound = new SoundAlerts('message_sent');
+  alert('sound!');
 }
 
 window.addEventListener('unload', () => {

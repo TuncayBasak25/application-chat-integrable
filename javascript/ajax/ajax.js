@@ -68,9 +68,10 @@ function defaultAjaxCallBack()
       {
         elm.innerHTML = content;
       }
-    } else if (elmId === 'none') // if (message sent)
+    }
+    else if (elmId === 'none') // if (message sent)
     {
-      // play sound (let soundAlert = new ChatSounds(id);)
+      // let messageSound = new SoundAlerts('message_sent');
     }
   }
 
