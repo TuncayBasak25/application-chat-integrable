@@ -14,28 +14,22 @@ class SoundAlerts
     this.audio = document.createElement('audio');
 		this.audio.src = sound;
     this.audio.id = this.id;
-    document.body.appendChild(this.audio); // or chat_container.appendChild(this.audio);
+    document.body.appendChild(this.audio);
     this.playSound();
 	}
 
   playSound = function()
   {
-    let audioTag = document.getElementById(this.id);
-      // rate = (Math.random() * 4.75) + 0.25; // playback rate range from 0.25 to 5.0
+    let audioTag = getId(this.id);
 
-    if (audioTag != null)
+    // if the user has already inracted with the page...
+    if (interaction === true && audioTag != null)
     {
       audioTag.play();
-      // soundAlert.playbackRate = rate;
     }
-  }
 
-  // stopSound = function(soundAlert)
-  // {
-  //   setTimeout(() => {
-  //     alert('done');
-  //   }, Math.round(soundAlert.duration * 1000));
-  // }
+    // when alert has been played, remove the audio element
+  }
 }
 
 class ActionsPopUp

@@ -24,7 +24,6 @@ class MessageController
       FormView::loginForm();
       $response['input_board'] = ob_get_contents();
       ob_clean();
-
       return $response;
     }
     (new MessageModel)->new_message($user['username'], htmlspecialchars($inputs['message']));
@@ -52,6 +51,7 @@ class MessageController
     MessageView::display($message_list, $user);
     $response['message_board']['add'] = ob_get_contents();
     ob_clean();
+
 
     return $response;
   }

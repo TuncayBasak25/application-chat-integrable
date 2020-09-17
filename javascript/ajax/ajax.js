@@ -100,10 +100,6 @@ function defaultAjaxCallBack()
         elm.innerHTML = content;
       }
     }
-    else if (elmId === 'none') // if (message sent)
-    {
-      // let messageSound = new SoundAlerts('message_sent');
-    }
   }
 
   if (this.callBackFunction_array !== null)

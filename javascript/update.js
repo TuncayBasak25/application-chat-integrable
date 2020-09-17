@@ -1,4 +1,4 @@
-let updateFrequency = 10000;
+let updateFrequency = 1000;
 
 function update()
 {
@@ -28,6 +28,8 @@ let deltaT = 0;
 let pingArray = [];
 function pingMeter()
 {
+  return false; // just for debugging
+
   deltaT = (new Date).getTime() - deltaT;
   pingArray.push(deltaT);
   if (deltaT > updateFrequency) updateFrequency = Math.ceil(deltaT);
