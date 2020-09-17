@@ -1,4 +1,4 @@
-let updateFrequency = 100;
+let updateFrequency = 10000;
 
 function update()
 {
@@ -21,7 +21,7 @@ function update()
   data.append('last_message_id', lastMessage);
 
   deltaT = (new Date).getTime();
-  ajax(data, [repeatUpdate, pingMeter]);
+  ajax(data, [repeatUpdate, pingMeter, playSoundAlert]);
 }
 
 let deltaT = 0;

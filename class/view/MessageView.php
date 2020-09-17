@@ -59,15 +59,15 @@ class MessageView
   {
     ?>
     <span class="message_source pl-1" style="color: blue" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?>: </span>
-    <span class="message_text ml-1" style="color: black;"><?= $message['message'] ?></span>
+    <span class="message_text ml-1" style="color: black;"><?= $message['message']; ?></span>
     <?php
   }
 
   public static function my_message($message)
   {
     ?>
-    <span class="pl-1" style="color: limegreen"><?= $message['source'] ?>: </span>
-    <span class="ml-1" style="color: navy;"><?= $message['message'] ?></span>
+    <span class="pl-1" style="color: limegreen"><?= $message['source']; ?>: </span>
+    <span class="ml-1" style="color: navy;"><?= $message['message']; ?></span>
     <?php
   }
 

@@ -25,17 +25,17 @@ class SoundAlerts
 
     if (audioTag != null)
     {
-      soundAlert.play();
+      audioTag.play();
       // soundAlert.playbackRate = rate;
     }
   }
 
-  stopSound = function(soundAlert)
-  {
-    setTimeout(() => {
-      alert('done');
-    }, Math.round(soundAlert.duration * 1000));
-  }
+  // stopSound = function(soundAlert)
+  // {
+  //   setTimeout(() => {
+  //     alert('done');
+  //   }, Math.round(soundAlert.duration * 1000));
+  // }
 }
 
 class ActionsPopUp
