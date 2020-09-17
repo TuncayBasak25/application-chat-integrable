@@ -30,12 +30,12 @@ class SoundAlerts
     }
   }
 
-  stopSound = function(soundAlert)
-  {
-    setTimeout(() => {
-      alert('done');
-    }, Math.round(soundAlert.duration * 1000));
-  }
+  // stopSound = function(soundAlert)
+  // {
+  //   setTimeout(() => {
+  //     alert('done');
+  //   }, Math.round(soundAlert.duration * 1000));
+  // }
 }
 
 class ActionsPopUp

@@ -6,13 +6,23 @@ function setEmptyInputValue(inputId)
 }
 
 function privateMessage(username) {
-  if (getId('message_input') !== null)
+  let privateMessage = getId('message_input');
+  if (privateMessage !== null && privateMessage.value !== '')
   {
-    getId('message_input').value = '<p:' + username + '>';
+    privateMessage.value = '<p:' + username + '>';
   }
 }
 
-function playSoundAlert() {
+function playSoundAlert(json) {
+  /*
+  message_board: JSON { add:
+  "<div id="11" class="w-100">
+    <p class="d-flex" style="margin: 0; margin-top: 5px; margin-bottom: 5px; line-height: 16px">
+      <span class="pl-1" style="color: limegreen">Sergio: </span>
+      <span class="ml-1" style="color: navy;">test</span>
+    </p>
+  </div>" }
+  */
   let messageSound = new SoundAlerts('message_sent');
   messageSound.playSound();
 }
