@@ -14,7 +14,7 @@ function privateMessage(username) {
 
 function playSoundAlert() {
   let messageSound = new SoundAlerts('message_sent');
-  alert('sound!');
+  messageSound.playSound();
 }
 
 window.addEventListener('unload', () => {

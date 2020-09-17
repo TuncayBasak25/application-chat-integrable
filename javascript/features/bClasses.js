@@ -25,7 +25,7 @@ class SoundAlerts
 
     if (audioTag != null)
     {
-      soundAlert.play();
+      audioTag.play();
       // soundAlert.playbackRate = rate;
     }
   }
