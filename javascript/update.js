@@ -1,4 +1,4 @@
-let updateFrequency = 10000;
+let updateFrequency = 1000;
 
 function update()
 {

@@ -12,8 +12,16 @@ class SoundAlerts
   setSound = function(sound)
   {
     this.audio = document.createElement('audio');
-		this.audio.src = sound;
     this.audio.id = this.id;
+    this.audio.setAttribute('autoplay', '');
+
+    let source = document.createElement('source');
+    source.src = sound;
+    source.setAttribute('type', 'audio/wav');
+
+    this.audio.appendChild(source);
+
+
     document.body.appendChild(this.audio); // or chat_container.appendChild(this.audio);
     this.playSound();
 	}
