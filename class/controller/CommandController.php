@@ -4,11 +4,13 @@ class CommandController
 {
   public static function execute($inputs)
   {
+    $user = (new UserModel)->actual_user();
+
     if ($inputs['message'] === '<disconnect>')
     {
-      (new MessageModel)->new_message('server', $_SESSION['username'] . " is disconnected");
+      (new MessageModel)->new_message('server', $user['username'] . " is disconnected");
 
-      unset($_SESSION['username']);
+      (new UserModel)->disconnect_user();
 
       ob_start();
       FormView::loginForm();
@@ -27,18 +29,18 @@ class CommandController
       $message = substr($inputs['message'], 3);
       $pos = strpos($message, '>');
 
-      $user = substr($message, 0, $pos);
+      $destination = substr($message, 0, $pos);
 
-      if (empty((new UserModel)->get_user($user)) === TRUE)
+      if (empty((new UserModel)->get_user($destination)) === TRUE)
       {
         $message = "This user doesn't exist.";
-        (new MessageModel)->new_message('server', $message, $_SESSION['username']);
+        (new MessageModel)->new_message('server', $message, $user['username']);
       }
       else
       {
         $message = substr($message, $pos + 1);
 
-        (new MessageModel)->new_message($_SESSION['username'], $message, $user);
+        (new MessageModel)->new_message($user['username'], $message, $destination);
       }
     }
   }

@@ -13,7 +13,8 @@ class UserModel extends DataBaseModel
 
       login_date INT,
       last_update INT,
-      login_id TEXT
+
+      session_id TEXT
     )";
 
     $this->init_data_base();
@@ -27,13 +28,39 @@ class UserModel extends DataBaseModel
   public function add_user($username)
   {
     $login_date = time();
-    $login_id = session_id();
 
-    $sql = "INSERT INTO $this->table (username, login_date, login_id) VALUES (?,?,?)";
+    $sql = "INSERT INTO $this->table (username, login_date) VALUES (?,?)";
 
-    $result = $this->query($sql, $username, $login_date, $login_id);
+    $result = $this->query($sql, $username, $login_date);
 
     return $result;
+  }
+
+  public function connect_user($username)
+  {
+    $sql = "UPDATE $this->table SET session_id = ? WHERE username = ?";
+
+    $result = $this->query($sql, session_id(), $username);
+
+    return $result;
+  }
+
+  public function disconnect_user()
+  {
+    $sql = "UPDATE $this->table SET session_id = ? WHERE session_id = ?";
+
+    $result = $this->query($sql, '', session_id());
+
+    return $result;
+  }
+
+  public function actual_user()
+  {
+    $sql = "SELECT * FROM $this->table WHERE session_id = ?";
+
+    $result = $this->query($sql, session_id());
+
+    return $result->fetch_assoc();
   }
 
   public function get_user($username)

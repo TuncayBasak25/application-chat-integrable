@@ -16,20 +16,21 @@ class UserController
 
     $userModel = new UserModel();
 
-    $test = $userModel->get_user($inputs['username']);
+    $user = $userModel->actual_user();
 
-    if ($inputs['username'] === 'server' && empty($test) === FALSE && time() - $test['last_update'] < 900)
+    if ($inputs['username'] === 'server' && empty($user) === FALSE && time() - $user['last_update'] < 900)
     {
-      $test = FALSE;
+      $user = FALSE;
     }
     else
     {
+      $userModel->disconnect_user();
       $userModel->delete_user($inputs['username']);
 
-      $test = TRUE;
+      $user = TRUE;
     }
 
-    if ($test === FALSE)
+    if ($user === FALSE)
     {
       ob_start();
       $message = ['id' => 'none', 'source' => 'server', 'message' => "This username is not available."];
@@ -41,9 +42,9 @@ class UserController
 
     $userModel->add_user($inputs['username']);
 
-    $_SESSION['username'] = $inputs['username'];
+    $userModel->connect_user($inputs['username']);
 
-    (new MessageModel())->new_message('server', $_SESSION['username'] . " is now connected.");
+    (new MessageModel())->new_message('server', $inputs['username'] . " is now connected.");
 
     ob_start();
     FormView::messageForm();

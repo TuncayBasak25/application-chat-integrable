@@ -2,18 +2,21 @@
 
 class MessageView
 {
-  public static function display($message_list)
+  public static function display($message_list, $user)
   {
+    if (empty($user) === FALSE) $username = $user['username'];
     foreach ($message_list as $index => $message)
     {
-      if (($message['destination'] === 'global') || (isset($_SESSION['username']) === TRUE) && ($message['destination'] === $_SESSION['username'] || $message['source'] === $_SESSION['username']))
+      $source = $message['source'];
+      $destination = $message['destination'];
+      if (($destination === 'global') || ($user !== FALSE) && ($destination === $username || $source === $username))
       {
-        MessageView::single_message($message);
+        MessageView::single_message($message, $user);
       }
     }
   }
 
-  public static function single_message($message)
+  public static function single_message($message, $user)
   {
     ?>
     <div id="<?= $message['id'] ?>" class="w-100">
@@ -25,20 +28,24 @@ class MessageView
         }
         else if ($message['destination'] === 'global')
         {
-          if (isset($_SESSION['username']) === TRUE && $message['source'] === $_SESSION['username'])
+          if (empty($user) === FALSE && $message['source'] === $user['username'])
           {
             MessageView::my_message($message);
           }
-          else
+          else if (empty($user) === FALSE)
           {
             MessageView::user_message($message);
           }
+          else
+          {
+            MessageView::disconnected_message($message);
+          }
         }
-        else if ($message['destination'] == $_SESSION['username'])
+        else if ($message['destination'] == $user['username'])
         {
           MessageView::received_private_message($message);
         }
-        else if ($message['source'] === $_SESSION['username'])
+        else if ($message['source'] === $user['username'])
         {
           MessageView::my_private_message($message);
         }
@@ -51,16 +58,25 @@ class MessageView
   public static function user_message($message)
   {
     ?>
-    <span class="message_source pl-1" style="color: blue" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?>: </span>
-    <span class="message_text ml-1" style="color: black;"><?= $message['message'] ?></span>
+    <!-- create a class "alert" instead on an id -->
+    <span id="alert" class="message_source pl-1" style="color: blue" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?>: </span>
+    <span class="message_text ml-1" style="color: black;"><?= $message['message']; ?></span>
     <?php
   }
 
   public static function my_message($message)
   {
     ?>
-    <span class="pl-1" style="color: limegreen"><?= $message['source'] ?>: </span>
-    <span class="ml-1" style="color: navy;"><?= $message['message'] ?></span>
+    <span class="pl-1" style="color: limegreen"><?= $message['source']; ?>: </span>
+    <span class="ml-1" style="color: navy;"><?= $message['message']; ?></span>
+    <?php
+  }
+
+  public static function disconnected_message($message)
+  {
+    ?>
+    <span class="pl-1" style="color: blue"><?= $message['source'] ?>: </span>
+    <span class="ml-1" style="color: black;"><?= $message['message'] ?></span>
     <?php
   }
 
@@ -75,7 +91,8 @@ class MessageView
   public static function received_private_message($message)
   {
     ?>
-    <span class="pl-1" style="color: darkred"><span class="message_source" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?></span> to you:</span>
+    <!-- create a class "alert" instead on an id -->
+    <span id="alert" class="pl-1" style="color: darkred"><span class="message_source" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?></span> to you:</span>
     <span class="message_text ml-1" style="color: navy;"><?= $message['message'] ?></span>
     <?php
   }

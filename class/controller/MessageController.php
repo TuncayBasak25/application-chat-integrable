@@ -14,28 +14,21 @@ class MessageController
       return $response;
     }
 
+    $user = (new UserModel)->actual_user();
+
     if ($inputs['message'] === '<disconnect>')
     {
-      (new MessageModel)->new_message('server', $_SESSION['username'] . " is disconnected");
-
-      session_destroy();
-      session_unset();
+      (new MessageModel)->new_message('server', $user['username'] . " is disconnected");
 
       ob_start();
       FormView::loginForm();
       $response['input_board'] = ob_get_contents();
       ob_clean();
-
       return $response;
     }
-    else
-    {
-      (new MessageModel)->new_message($_SESSION['username'], htmlspecialchars($inputs['message']));
+    (new MessageModel)->new_message($user['username'], htmlspecialchars($inputs['message']));
 
-      (new UserModel)->set_user_column($_SESSION['username'], 'last_update', time());
-    }
-
-    return ['none' => ''];
+    (new UserModel)->set_user_column($user['username'], 'last_update', time());
   }
 
   public static function update($inputs)
@@ -52,11 +45,13 @@ class MessageController
       $message_list = $messageModel->get_all_message_after($id);
     }
 
+    $user = (new UserModel)->actual_user();
 
     ob_start();
-    MessageView::display($message_list);
+    MessageView::display($message_list, $user);
     $response['message_board']['add'] = ob_get_contents();
     ob_clean();
+
 
     return $response;
   }
