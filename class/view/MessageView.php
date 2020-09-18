@@ -58,7 +58,8 @@ class MessageView
   public static function user_message($message)
   {
     ?>
-    <span class="message_source pl-1" style="color: blue" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?>: </span>
+    <!-- create a class "alert" instead on an id -->
+    <span id="alert" class="message_source pl-1" style="color: blue" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?>: </span>
     <span class="message_text ml-1" style="color: black;"><?= $message['message']; ?></span>
     <?php
   }
@@ -90,7 +91,8 @@ class MessageView
   public static function received_private_message($message)
   {
     ?>
-    <span class="pl-1" style="color: darkred"><span class="message_source" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?></span> to you:</span>
+    <!-- create a class "alert" instead on an id -->
+    <span id="alert" class="pl-1" style="color: darkred"><span class="message_source" onclick="privateMessage('<?= $message['source']; ?>');"><?= $message['source'] ?></span> to you:</span>
     <span class="message_text ml-1" style="color: navy;"><?= $message['message'] ?></span>
     <?php
   }
