@@ -12,7 +12,6 @@ class SoundAlerts
   setSound = function(sound)
   {
     this.audio = document.createElement('audio');
-		this.audio.src = sound;
     this.audio.id = this.id;
     document.body.appendChild(this.audio);
     this.playSound();

@@ -15,6 +15,19 @@ function privateMessage(username) {
 }
 
 function playSoundAlert(json) {
+<<<<<<< HEAD
+  /*
+  message_board: JSON { add:
+  "<div id="11" class="w-100">
+    <p class="d-flex" style="margin: 0; margin-top: 5px; margin-bottom: 5px; line-height: 16px">
+      <span class="pl-1" style="color: limegreen">Sergio: </span>
+      <span class="ml-1" style="color: navy;">test</span>
+    </p>
+  </div>" }
+  */
+  let messageSound = new SoundAlerts('message_sent');
+  messageSound.playSound();
+=======
   // create an html class "alert", iterate over and detect an incoming message
   let board = getId('message_board');
 
@@ -24,6 +37,7 @@ function playSoundAlert(json) {
       div.firstElementChild.firstElementChild.id = '';
     }
   }
+>>>>>>> 7272aa824534575154ace0a50e9f1c56ac2d3481
 }
 
 // check if the user interacts with the window
