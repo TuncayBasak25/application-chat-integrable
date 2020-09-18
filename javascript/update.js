@@ -21,7 +21,7 @@ function update()
   data.append('last_message_id', lastMessage);
 
   deltaT = (new Date).getTime();
-  ajax(data, [repeatUpdate, pingMeter, playSoundAlert]);
+  ajax(data, [repeatUpdate, pingMeter]);
 }
 
 let deltaT = 0;
